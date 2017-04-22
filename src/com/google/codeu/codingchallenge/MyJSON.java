@@ -16,7 +16,7 @@ package com.google.codeu.codingchallenge;
 
 import java.util.Collection;
 
-final class MyJSON implements JSON {
+public final class MyJSON implements JSON {
 
   @Override
   public JSON getObject(String name) {

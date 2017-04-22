@@ -16,7 +16,7 @@ package com.google.codeu.codingchallenge;
 
 import java.io.IOException;
 
-interface JSONParser {
+public interface JSONParser {
 
   // PARSE
   //

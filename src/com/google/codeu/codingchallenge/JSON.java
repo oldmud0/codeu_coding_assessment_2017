@@ -17,7 +17,7 @@ package com.google.codeu.codingchallenge;
 import java.io.IOException;
 import java.util.Collection;
 
-interface JSON {
+public interface JSON {
 
   // GET OBJECT
   //

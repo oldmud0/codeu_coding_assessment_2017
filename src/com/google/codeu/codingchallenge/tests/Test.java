@@ -12,9 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.codeu.codingchallenge;
+package com.google.codeu.codingchallenge.tests;
+
+import com.google.codeu.codingchallenge.JSONFactory;
 
 interface Test {
+    
+  String getName();
 
   void run(JSONFactory factory) throws Exception;
 

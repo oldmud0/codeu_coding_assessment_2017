@@ -14,7 +14,7 @@
 
 package com.google.codeu.codingchallenge;
 
-interface JSONFactory {
+public interface JSONFactory {
 
   // OBJECT
   //

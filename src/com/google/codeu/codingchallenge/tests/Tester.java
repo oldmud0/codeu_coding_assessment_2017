@@ -12,27 +12,51 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.codeu.codingchallenge;
+package com.google.codeu.codingchallenge.tests;
 
 import java.util.Map;
+
+import com.google.codeu.codingchallenge.JSONFactory;
+
 import java.util.HashMap;
 
 final class Tester {
 
   private final Map<String, Test> tests = new HashMap<>();
+  
+  private int testsFailed = 0;
 
-  public void add(String name, Test test) {
-    tests.put(name, test);
+  public void add(Test test) {
+    tests.put(test.getName(), test);
   }
 
   public void run(JSONFactory factory) {
+	testsFailed = 0;
     for (final Map.Entry<String, Test> test : tests.entrySet()) {
       try {
         test.getValue().run(factory);
-        System.out.format("PASS : Test %s\n", test.getKey());
+        System.out.format("[PASS] Test %s\n", test.getKey());
       } catch (Exception ex) {
-        System.out.format("FAIL : Test %s (%s)\n", test.getKey(), ex.toString());
+        System.out.format("[FAIL] Test %s (%s)\n", test.getKey(), ex.toString());
+        testsFailed++;
       }
     }
+  }
+  
+  public int getTotalTests() {
+      return tests.size();
+  }
+  
+  public int getTestsPassed() {
+      return getTotalTests() - testsFailed;
+  }
+  
+  public int getTestsFailed() {
+      return testsFailed;
+  }
+  
+  public String getSummary() {
+      return String.format("%d out of %d tests passed (%.02f%%).",
+              getTestsPassed(), getTotalTests(), (double)getTestsPassed() / getTotalTests());
   }
 }
