@@ -2,6 +2,6 @@
 
 ./build.sh
 
-if [ TEST == "true" ]; then
+if [ $TEST == "true" ]; then
   ./run.sh
 fi
