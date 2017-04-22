@@ -14,4 +14,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-java -cp bin com.google.codeu.codingchallenge.TestMain
+java -cp bin com.google.codeu.codingchallenge.tests.TestMain
