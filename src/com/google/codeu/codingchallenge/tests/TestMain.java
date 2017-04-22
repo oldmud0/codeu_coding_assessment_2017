@@ -29,6 +29,9 @@ final class TestMain {
         tests.add(new EmptyObjectTest());
         tests.add(new StringValueTest());
         tests.add(new ObjectValueTest());
+        tests.add(new TripleQuoteTest());
+        tests.add(new UnsupportedEscapeSequenceTest());
+        tests.add(new SupportedEscapeSequenceTest());
 
         tests.run(new TestJSONFactory());
         
