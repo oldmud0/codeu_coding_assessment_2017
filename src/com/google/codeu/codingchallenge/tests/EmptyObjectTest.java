@@ -8,24 +8,25 @@ import com.google.codeu.codingchallenge.JSONFactory;
 import com.google.codeu.codingchallenge.JSONParser;
 
 public class EmptyObjectTest implements Test {
-    
-    public String getName() {
-        return "Empty Object";
-    }
-    
-    @Override
-    public void run(JSONFactory factory) throws Exception {
-      final JSONParser parser = factory.parser();
-      final JSON obj = parser.parse("{ }");
 
-      final Collection<String> strings = new HashSet<>();
-      obj.getStrings(strings);
+  @Override
+  public String getName() {
+    return "Empty Object";
+  }
 
-      Asserts.isEqual(strings.size(), 0);
+  @Override
+  public void run(JSONFactory factory) throws Exception {
+    final JSONParser parser = factory.parser();
+    final JSON obj = parser.parse("{ }");
 
-      final Collection<String> objects = new HashSet<>();
-      obj.getObjects(objects);
+    final Collection<String> strings = new HashSet<>();
+    obj.getStrings(strings);
 
-      Asserts.isEqual(objects.size(), 0);
-    }
+    Asserts.isEqual(strings.size(), 0);
+
+    final Collection<String> objects = new HashSet<>();
+    obj.getObjects(objects);
+
+    Asserts.isEqual(objects.size(), 0);
+  }
 }

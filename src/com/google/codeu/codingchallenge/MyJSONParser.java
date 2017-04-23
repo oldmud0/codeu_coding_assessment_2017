@@ -15,12 +15,8 @@
 package com.google.codeu.codingchallenge;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -146,12 +142,12 @@ public final class MyJSONParser implements JSONParser {
             } else {
               escaping = false;
             }
-            if(++j > in.length()) {
-              throw new SyntaxException("Expected end of object"); 
+            if (++j > in.length()) {
+              throw new SyntaxException("Expected end of object");
             }
           }
           assert (j != i);
-          
+
           Debug.println(i + " - " + j + ": Object range");
 
           String innerObjectString = in.substring(i, j + 1);
@@ -197,18 +193,18 @@ public final class MyJSONParser implements JSONParser {
   private String parseEscapeSequences(String in) throws SyntaxException {
     String parsed = new String(in);
 
-    // There's a regex solution, but after about an hour, I just couldn't figure it out.
+    // There's a regex solution, but after about an hour, I just couldn't figure
+    // it out.
     boolean escaped = false;
-    for(int i = 0; i < parsed.length(); i++) {
+    for (int i = 0; i < parsed.length(); i++) {
       char c = parsed.charAt(i);
-      if(escaped)
-        if(c == '\\' || c == '"' || c == 'n' || c == 't')
+      if (escaped)
+        if (c == '\\' || c == '"' || c == 'n' || c == 't')
           escaped = false;
         else
           throw new SyntaxException("Invalid/unsupported escape character");
-      else
-        if(c == '\\')
-          escaped = true;
+      else if (c == '\\')
+        escaped = true;
     }
 
     parsed = parsed.replace("\\t", "\t");

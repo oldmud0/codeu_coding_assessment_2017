@@ -17,7 +17,7 @@ package com.google.codeu.codingchallenge.tests;
 import com.google.codeu.codingchallenge.JSONFactory;
 
 interface Test {
-    
+
   String getName();
 
   void run(JSONFactory factory) throws Exception;

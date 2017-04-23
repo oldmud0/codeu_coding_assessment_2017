@@ -11,23 +11,23 @@ import com.google.codeu.codingchallenge.tests.Asserts.AssertException;
 
 public class TrailingCommaTest implements Test {
 
-    @Override
-    public String getName() {
-        return "Syntax Error - Trailing Comma";
-    }
+  @Override
+  public String getName() {
+    return "Syntax Error - Trailing Comma";
+  }
 
-    @Override
-    public void run(JSONFactory factory) throws Exception {
-      final JSONParser parser = factory.parser();
-      final String filename = "tests/TrailingCommaTest.txt";
-      final String contents = new String(Files.readAllBytes(Paths.get(filename)));
-      
-      try {
-          final JSON obj = parser.parse(contents);
-          throw new AssertException("Expected IOException to be thrown, but nothing was thrown");
-      } catch (IOException e) {
-          //Success!
-      }
-   }
+  @Override
+  public void run(JSONFactory factory) throws Exception {
+    final JSONParser parser = factory.parser();
+    final String filename = "tests/TrailingCommaTest.txt";
+    final String contents = new String(Files.readAllBytes(Paths.get(filename)));
+
+    try {
+      final JSON obj = parser.parse(contents);
+      throw new AssertException("Expected IOException to be thrown, but nothing was thrown");
+    } catch (IOException e) {
+      // Success!
+    }
+  }
 
 }

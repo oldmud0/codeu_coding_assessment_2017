@@ -23,7 +23,7 @@ import java.util.HashMap;
 final class Tester {
 
   private final Map<String, Test> tests = new HashMap<>();
-  
+
   private int testsFailed = 0;
 
   public void add(Test test) {
@@ -31,7 +31,7 @@ final class Tester {
   }
 
   public void run(JSONFactory factory) {
-	testsFailed = 0;
+    testsFailed = 0;
     for (final Map.Entry<String, Test> test : tests.entrySet()) {
       try {
         test.getValue().run(factory);
@@ -42,21 +42,21 @@ final class Tester {
       }
     }
   }
-  
+
   public int getTotalTests() {
-      return tests.size();
+    return tests.size();
   }
-  
+
   public int getTestsPassed() {
-      return getTotalTests() - testsFailed;
+    return getTotalTests() - testsFailed;
   }
-  
+
   public int getTestsFailed() {
-      return testsFailed;
+    return testsFailed;
   }
-  
+
   public String getSummary() {
-      return String.format("%d out of %d tests passed (%.02f%%).",
-              getTestsPassed(), getTotalTests(), (double)getTestsPassed() / getTotalTests() * 100.);
+    return String.format("%d out of %d tests passed (%.02f%%).", getTestsPassed(), getTotalTests(),
+        (double) getTestsPassed() / getTotalTests() * 100.);
   }
 }

@@ -6,17 +6,17 @@ import com.google.codeu.codingchallenge.JSONParser;
 
 public class StringValueTest implements Test {
 
-    @Override
-    public String getName() {
-        return "String Value";
-    }
+  @Override
+  public String getName() {
+    return "String Value";
+  }
 
-    @Override
-    public void run(JSONFactory factory) throws Exception {
-      final JSONParser parser = factory.parser();
-      final JSON obj = parser.parse("{ \"name\":\"sam doe\" }");
+  @Override
+  public void run(JSONFactory factory) throws Exception {
+    final JSONParser parser = factory.parser();
+    final JSON obj = parser.parse("{ \"name\":\"sam doe\" }");
 
-      Asserts.isEqual("sam doe", obj.getString("name"));
-   }
+    Asserts.isEqual("sam doe", obj.getString("name"));
+  }
 
 }

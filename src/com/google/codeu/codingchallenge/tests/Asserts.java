@@ -14,9 +14,6 @@
 
 package com.google.codeu.codingchallenge.tests;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 final class Asserts {
 
   public static final class AssertException extends RuntimeException {

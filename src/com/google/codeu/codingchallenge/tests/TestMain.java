@@ -23,43 +23,43 @@ import com.google.codeu.codingchallenge.MyJSONParser;
 
 final class TestMain {
 
-    public static void main(String[] args) {
-      
-        Debug.setEnabled(false);
+  public static void main(String[] args) {
 
-        final Tester tests = new Tester();
+    Debug.setEnabled(false);
 
-        tests.add(new EmptyObjectTest());
-        tests.add(new StringValueTest());
-        tests.add(new ObjectValueTest());
-        tests.add(new TripleQuoteTest());
-        tests.add(new UnsupportedEscapeSequenceTest());
-        tests.add(new SupportedEscapeSequenceTest());
-        tests.add(new OneStringTest());
-        tests.add(new MultiStringTest());
-        tests.add(new OneObjectTest());
-        tests.add(new MultiObjectTest());
-        tests.add(new NestedObjectTest());
-        tests.add(new BracesInStringsTest());
-        tests.add(new NoWhitespaceTest());
-        tests.add(new TrailingCommaTest());
+    final Tester tests = new Tester();
 
-        tests.run(new TestJSONFactory());
-        
-        System.out.println();
-        System.out.println(tests.getSummary());
-        System.exit(tests.getTestsFailed());
+    tests.add(new EmptyObjectTest());
+    tests.add(new StringValueTest());
+    tests.add(new ObjectValueTest());
+    tests.add(new TripleQuoteTest());
+    tests.add(new UnsupportedEscapeSequenceTest());
+    tests.add(new SupportedEscapeSequenceTest());
+    tests.add(new OneStringTest());
+    tests.add(new MultiStringTest());
+    tests.add(new OneObjectTest());
+    tests.add(new MultiObjectTest());
+    tests.add(new NestedObjectTest());
+    tests.add(new BracesInStringsTest());
+    tests.add(new NoWhitespaceTest());
+    tests.add(new TrailingCommaTest());
+
+    tests.run(new TestJSONFactory());
+
+    System.out.println();
+    System.out.println(tests.getSummary());
+    System.exit(tests.getTestsFailed());
+  }
+
+  private static final class TestJSONFactory implements JSONFactory {
+    @Override
+    public JSONParser parser() {
+      return new MyJSONParser();
     }
 
-    private static final class TestJSONFactory implements JSONFactory {
-        @Override
-        public JSONParser parser() {
-            return new MyJSONParser();
-        }
-
-        @Override
-        public JSON object() {
-            return new MyJSON();
-        }
+    @Override
+    public JSON object() {
+      return new MyJSON();
     }
+  }
 }

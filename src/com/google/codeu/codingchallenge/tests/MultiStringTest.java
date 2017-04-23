@@ -9,23 +9,23 @@ import com.google.codeu.codingchallenge.JSONParser;
 
 public class MultiStringTest implements Test {
 
-    @Override
-    public String getName() {
-        return "Multiple Strings";
-    }
+  @Override
+  public String getName() {
+    return "Multiple Strings";
+  }
 
-    @Override
-    public void run(JSONFactory factory) throws Exception {
-      final JSONParser parser = factory.parser();
-      final String filename = "tests/MultiStringTest.txt";
-      final String contents = new String(Files.readAllBytes(Paths.get(filename)));
-      
-      final JSON obj = parser.parse(contents);
-      
-      Asserts.isNotNull(obj);
-      Asserts.isEqual(obj.getString("foo"), "bar");
-      Asserts.isEqual(obj.getString("bar"), "baz");
-      Asserts.isEqual(obj.getString("yerp"), "keke");
-   }
+  @Override
+  public void run(JSONFactory factory) throws Exception {
+    final JSONParser parser = factory.parser();
+    final String filename = "tests/MultiStringTest.txt";
+    final String contents = new String(Files.readAllBytes(Paths.get(filename)));
+
+    final JSON obj = parser.parse(contents);
+
+    Asserts.isNotNull(obj);
+    Asserts.isEqual(obj.getString("foo"), "bar");
+    Asserts.isEqual(obj.getString("bar"), "baz");
+    Asserts.isEqual(obj.getString("yerp"), "keke");
+  }
 
 }
