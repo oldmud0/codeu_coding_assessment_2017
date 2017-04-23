@@ -43,6 +43,10 @@ final class TestMain {
     tests.add(new BracesInStringsTest());
     tests.add(new NoWhitespaceTest());
     tests.add(new TrailingCommaTest());
+    tests.add(new DuplicateKeysTest());
+    
+    TestFactory factory = new TestFactory();
+    factory.generateTests(tests);
 
     tests.run(new TestJSONFactory());
 

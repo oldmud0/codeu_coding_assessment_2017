@@ -14,6 +14,7 @@
 
 package com.google.codeu.codingchallenge;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,15 +56,39 @@ public final class MyJSON implements JSON {
 
   @Override
   public void getObjects(Collection<String> names) {
-    Set<String> stringKeys = strings.keySet();
-    for (String key : stringKeys)
+    Set<String> objectKeys = objects.keySet();
+    for (String key : objectKeys)
       names.add(key);
   }
 
   @Override
   public void getStrings(Collection<String> names) {
-    Set<String> objectKeys = objects.keySet();
-    for (String key : objectKeys)
+    Set<String> stringKeys = strings.keySet();
+    for (String key : stringKeys)
       names.add(key);
+  }
+  
+  /**
+   * Recursively counts the number of keys inside a JSON object.
+   * @param object Any JSON object
+   * @return The total number of keys inside the JSON object
+   */
+  public static int count(JSON object) {
+    int count = 0;
+
+    Collection<String> names = new ArrayList<String>();
+    object.getObjects(names);
+    Debug.println(names.toString());
+    for(String name : names) {
+      count++;
+      count += count(object.getObject(name));
+    }
+
+    names = new ArrayList<String>();
+    object.getStrings(names);
+    Debug.println(names.toString());
+    count += names.size();
+
+    return count;
   }
 }

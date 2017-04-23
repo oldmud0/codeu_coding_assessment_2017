@@ -1,0 +1,28 @@
+{ }
+0
+{ "name": "sam doe" }
+1
+{ "name": { "first": "sam", "last": "doe" } }
+3
+{ { } }
+-1
+{ "name": "作田山本", "occupation": "教師" }
+2
+{										      	 	  	 	  			 "my patience 	 	 	 				 	 "  	 	 	 	 	 	 	 : "running thin" }
+1
+{"1":{"2":{"3":{"4":{"5":{"6":{"7":{"8":{"9":{"10":"success"}}}}}}}}}}
+10
+{"I'm too lazy to write decent JSON": "Please give me a 100 on my test"
+-1
+{ "occupation": { "name": "janitor", "description": "you do \"work\""}}
+3
+{ I"ll use every trick in the book":{}}
+-1
+{ "empty":,}
+-1
+{"no": {}
+-1
+{"multiple": {"objects": "are"}, "the":{"best!":"yay"}}
+4
+{"multiple": {"objects":}, "the":{"worst!",}}
+-1

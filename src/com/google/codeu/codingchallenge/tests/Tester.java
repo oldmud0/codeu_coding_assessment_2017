@@ -15,6 +15,7 @@
 package com.google.codeu.codingchallenge.tests;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.google.codeu.codingchallenge.JSONFactory;
 
@@ -22,7 +23,7 @@ import java.util.HashMap;
 
 final class Tester {
 
-  private final Map<String, Test> tests = new HashMap<>();
+  private final Map<String, Test> tests = new TreeMap<>();
 
   private int testsFailed = 0;
 
@@ -34,9 +35,12 @@ final class Tester {
     testsFailed = 0;
     for (final Map.Entry<String, Test> test : tests.entrySet()) {
       try {
+        long startTime = System.nanoTime();
         test.getValue().run(factory);
-        System.out.format("[PASS] Test %s\n", test.getKey());
+        long endTime = System.nanoTime();
+        System.out.format("[PASS] Test %s (%.04f s)\n", test.getKey(), (endTime - startTime) * Math.pow(10, -9));
       } catch (Exception ex) {
+        ex.printStackTrace();
         System.out.format("[FAIL] Test %s (%s)\n", test.getKey(), ex.toString());
         testsFailed++;
       }

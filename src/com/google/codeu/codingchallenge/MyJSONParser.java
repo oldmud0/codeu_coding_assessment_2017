@@ -117,9 +117,8 @@ public final class MyJSONParser implements JSONParser {
 
         case '{':
           Debug.println(i + ": Start object");
-          if (expectingComma || expectingColon)
+          if (expectingComma || expectingColon || key == null)
             throw new SyntaxException();
-          assert (key != null);
 
           // Parse the object.
           int j = i + 1, depth = 1;
@@ -174,6 +173,7 @@ public final class MyJSONParser implements JSONParser {
           }
           assert (key == null);
           assert (i == in.length());
+          expectingComma = false;
           break;
 
         default:
@@ -182,6 +182,10 @@ public final class MyJSONParser implements JSONParser {
         i++;
         Debug.println("Going to " + i);
       }
+      if(expectingComma) {
+        throw new SyntaxException("Expected end of object");
+      }
+      
       return object;
     } catch (Exception e) {
       // Whatever exception we get, throw it as an IOException to meet the
