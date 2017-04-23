@@ -57,6 +57,6 @@ final class Tester {
   
   public String getSummary() {
       return String.format("%d out of %d tests passed (%.02f%%).",
-              getTestsPassed(), getTotalTests(), (double)getTestsPassed() / getTotalTests());
+              getTestsPassed(), getTotalTests(), (double)getTestsPassed() / getTotalTests() * 100.);
   }
 }
