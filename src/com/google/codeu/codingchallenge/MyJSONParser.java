@@ -38,7 +38,6 @@ public final class MyJSONParser implements JSONParser {
       boolean expectingComma = false, expectingColon = false;
       Set<String> usedKeys = new TreeSet<String>();
       while (i < in.length()) {
-
         switch (in.charAt(i)) {
         case ' ':
         case '\n':
@@ -46,12 +45,12 @@ public final class MyJSONParser implements JSONParser {
           // Let it slide, it's just whitespace.
           break;
 
-        case '\"':
+        case '"':
           if (expectingComma || expectingColon)
             throw new SyntaxException();
 
           // Parse the string.
-          Pattern endOfStringPattern = Pattern.compile("[^\\]\"");
+          Pattern endOfStringPattern = Pattern.compile("[^\\\\]\"");
           Matcher endOfStringMatcher = endOfStringPattern.matcher(in);
           if (!endOfStringMatcher.find(i + 1)) {
             throw new SyntaxException("No end of string found");
