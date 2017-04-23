@@ -32,6 +32,11 @@ final class TestMain {
         tests.add(new TripleQuoteTest());
         tests.add(new UnsupportedEscapeSequenceTest());
         tests.add(new SupportedEscapeSequenceTest());
+        tests.add(new OneStringTest());
+        tests.add(new MultiStringTest());
+        tests.add(new OneObjectTest());
+        tests.add(new MultiObjectTest());
+        tests.add(new NestedObjectTest());
 
         tests.run(new TestJSONFactory());
         

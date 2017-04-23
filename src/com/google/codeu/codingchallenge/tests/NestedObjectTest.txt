@@ -1,0 +1,14 @@
+{
+  "foo":
+  { 
+    "bar":
+    { 
+      "baz": "yerp",
+      "keke": "coolio"
+    },
+    
+    "asdf": "ghjkl"
+  },
+  
+  "lastKey": "lastValue"
+}
