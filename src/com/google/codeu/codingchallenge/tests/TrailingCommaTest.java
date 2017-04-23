@@ -1,32 +1,33 @@
 package com.google.codeu.codingchallenge.tests;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.google.codeu.codingchallenge.JSON;
 import com.google.codeu.codingchallenge.JSONFactory;
 import com.google.codeu.codingchallenge.JSONParser;
-import com.google.codeu.codingchallenge.MyJSON;
+import com.google.codeu.codingchallenge.tests.Asserts.AssertException;
 
-public class OneObjectTest implements Test {
+public class TrailingCommaTest implements Test {
 
     @Override
     public String getName() {
-        return "One Object";
+        return "Syntax Error - Trailing Comma";
     }
 
     @Override
     public void run(JSONFactory factory) throws Exception {
       final JSONParser parser = factory.parser();
-      final String filename = "tests/OneObjectTest.txt";
+      final String filename = "tests/TrailingCommaTest.txt";
       final String contents = new String(Files.readAllBytes(Paths.get(filename)));
       
-      final JSON obj = parser.parse(contents);
-      
-      Asserts.isNotNull(obj);
-      Asserts.isNotNull(obj.getObject("foo"));
-      Asserts.isEqual(obj.getObject("foo").getString("bar"), "baz");
-      Asserts.isEqual(obj.getObject("foo").getString("bing"), "bop");
+      try {
+          final JSON obj = parser.parse(contents);
+          throw new AssertException("Expected IOException to be thrown, but nothing was thrown");
+      } catch (IOException e) {
+          //Success!
+      }
    }
 
 }

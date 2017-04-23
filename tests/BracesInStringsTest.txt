@@ -1,0 +1,14 @@
+{
+  "foo}":
+  { 
+    "bar}":
+    { 
+      "b\{az": "{yerp",
+      "keke": "coolio"
+    },
+    
+    "as{df": "g}hjkl"
+  },
+  
+  "lastKey": "lastValue"
+}

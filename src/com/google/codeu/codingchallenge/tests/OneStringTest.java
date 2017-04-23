@@ -17,7 +17,7 @@ public class OneStringTest implements Test {
     @Override
     public void run(JSONFactory factory) throws Exception {
       final JSONParser parser = factory.parser();
-      final String filename = "OneStringTest.txt";
+      final String filename = "tests/OneStringTest.txt";
       final String contents = new String(Files.readAllBytes(Paths.get(filename)));
       
       final JSON obj = parser.parse(contents);

@@ -18,7 +18,7 @@ public class MultiObjectTest implements Test {
     @Override
     public void run(JSONFactory factory) throws Exception {
       final JSONParser parser = factory.parser();
-      final String filename = "MultiObjectTest.txt";
+      final String filename = "tests/MultiObjectTest.txt";
       final String contents = new String(Files.readAllBytes(Paths.get(filename)));
       
       final JSON obj = parser.parse(contents);

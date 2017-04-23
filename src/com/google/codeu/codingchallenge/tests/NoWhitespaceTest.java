@@ -8,17 +8,17 @@ import com.google.codeu.codingchallenge.JSONFactory;
 import com.google.codeu.codingchallenge.JSONParser;
 import com.google.codeu.codingchallenge.MyJSON;
 
-public class OneObjectTest implements Test {
+public class NoWhitespaceTest implements Test {
 
     @Override
     public String getName() {
-        return "One Object";
+        return "No Whitespace";
     }
 
     @Override
     public void run(JSONFactory factory) throws Exception {
       final JSONParser parser = factory.parser();
-      final String filename = "tests/OneObjectTest.txt";
+      final String filename = "tests/NoWhitespaceTest.txt";
       final String contents = new String(Files.readAllBytes(Paths.get(filename)));
       
       final JSON obj = parser.parse(contents);

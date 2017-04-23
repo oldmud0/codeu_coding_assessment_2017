@@ -37,6 +37,9 @@ final class TestMain {
         tests.add(new OneObjectTest());
         tests.add(new MultiObjectTest());
         tests.add(new NestedObjectTest());
+        tests.add(new BracesInStringsTest());
+        tests.add(new NoWhitespaceTest());
+        tests.add(new TrailingCommaTest());
 
         tests.run(new TestJSONFactory());
         

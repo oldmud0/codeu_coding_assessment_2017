@@ -18,7 +18,7 @@ public class NestedObjectTest implements Test {
     @Override
     public void run(JSONFactory factory) throws Exception {
       final JSONParser parser = factory.parser();
-      final String filename = "NestedObjectTest.txt";
+      final String filename = "tests/NestedObjectTest.txt";
       final String contents = new String(Files.readAllBytes(Paths.get(filename)));
       
       final JSON obj = parser.parse(contents);
