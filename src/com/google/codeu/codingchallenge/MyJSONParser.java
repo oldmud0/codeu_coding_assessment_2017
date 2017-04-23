@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,12 +41,15 @@ public final class MyJSONParser implements JSONParser {
       while (i < in.length()) {
         switch (in.charAt(i)) {
         case ' ':
+        case '\r':
         case '\n':
         case '\t':
+          Debug.println(i + ": Whitespace");
           // Let it slide, it's just whitespace.
           break;
 
         case '"':
+          Debug.println(i + ": Quote");
           if (expectingComma || expectingColon)
             throw new SyntaxException();
 
@@ -56,12 +60,25 @@ public final class MyJSONParser implements JSONParser {
             throw new SyntaxException("No end of string found");
           }
 
-          int endOfString = endOfStringMatcher.end();
-          String parsedString = parseEscapeSequences(in.substring(i + 1, endOfString));
+          int endOfString = endOfStringMatcher.end() - 1;
+          Debug.println(i + " - " + endOfString + ": String range");
+
+          String str = in.substring(i + 1, endOfString);
+          Debug.println("String: " + str);
+
+          Pattern unescapedQuotePattern = Pattern.compile("[^\\\\]\"|^\"");
+          Matcher strQuoteMatcher = unescapedQuotePattern.matcher(str);
+          if (strQuoteMatcher.matches()) {
+            throw new SyntaxException("Unescaped quote inside string");
+          }
+
+          String parsedString = parseEscapeSequences(str);
+          Debug.println("Parsed string: " + parsedString);
 
           if (key == null) {
             // The string we just parsed was a key.
             // Expect a colon to come later.
+            Debug.println("String is a key.");
             if (usedKeys.add(parsedString)) {
               key = parsedString;
               expectingColon = true;
@@ -70,16 +87,19 @@ public final class MyJSONParser implements JSONParser {
               throw new SyntaxException();
             }
           } else {
+            Debug.println("String is a value.");
             // The string we just parsed was a value.
             // Expect a comma to come later.
             object.setString(key, parsedString);
             key = null;
             expectingComma = true;
           }
-          i = endOfString - 1;
+          i = endOfString;
+          Debug.println("Jumping to: " + i);
           break;
 
         case ':':
+          Debug.println(i + ": Colon");
           // Only valid if we are expecting it (i.e. a key was just defined).
           if (!expectingColon) {
             throw new SyntaxException();
@@ -89,6 +109,7 @@ public final class MyJSONParser implements JSONParser {
           break;
 
         case ',':
+          Debug.println(i + ": Comma");
           // Only valid if we are expecting it (i.e. a key-value pair was just
           // defined).
           if (!expectingComma) {
@@ -99,6 +120,7 @@ public final class MyJSONParser implements JSONParser {
           break;
 
         case '{':
+          Debug.println(i + ": Start object");
           if (expectingComma || expectingColon)
             throw new SyntaxException();
           assert (key != null);
@@ -124,11 +146,17 @@ public final class MyJSONParser implements JSONParser {
             } else {
               escaping = false;
             }
-            j++;
+            if(++j > in.length()) {
+              throw new SyntaxException("Expected end of object"); 
+            }
           }
           assert (j != i);
+          
+          Debug.println(i + " - " + j + ": Object range");
 
           String innerObjectString = in.substring(i, j + 1);
+
+          Debug.println("Inner object: " + innerObjectString);
           JSON innerObject = parse(innerObjectString);
           object.setObject(key, innerObject);
 
@@ -139,8 +167,10 @@ public final class MyJSONParser implements JSONParser {
           break;
 
         case '}':
-          if (!expectingComma) {
+          Debug.println(i + ": End object");
+          if (!expectingComma && !usedKeys.isEmpty()) {
             // The parser ran through a comma just previously.
+            // But the object might actually just be an empty object.
             throw new SyntaxException("Ending object with trailing comma");
           }
           if (expectingColon) {
@@ -154,6 +184,7 @@ public final class MyJSONParser implements JSONParser {
           throw new SyntaxException("Unexpected character");
         }
         i++;
+        Debug.println("Going to " + i);
       }
       return object;
     } catch (Exception e) {
@@ -166,15 +197,23 @@ public final class MyJSONParser implements JSONParser {
   private String parseEscapeSequences(String in) throws SyntaxException {
     String parsed = new String(in);
 
-    Pattern invalidEscapePattern = Pattern.compile("\\[^tn\"\\]");
-    Matcher invalidEscapeMatcher = invalidEscapePattern.matcher(in);
-    if (invalidEscapeMatcher.matches()) {
-      throw new SyntaxException("Invalid/unsupported escape characters");
+    // There's a regex solution, but after about an hour, I just couldn't figure it out.
+    boolean escaped = false;
+    for(int i = 0; i < parsed.length(); i++) {
+      char c = parsed.charAt(i);
+      if(escaped)
+        if(c == '\\' || c == '"' || c == 'n' || c == 't')
+          escaped = false;
+        else
+          throw new SyntaxException("Invalid/unsupported escape character");
+      else
+        if(c == '\\')
+          escaped = true;
     }
 
-    parsed.replaceAll("\\t", "\t");
-    parsed.replaceAll("\\n", "\n");
-    parsed.replaceAll("\\\"", "\"");
+    parsed = parsed.replace("\\t", "\t");
+    parsed = parsed.replace("\\n", "\n");
+    parsed = parsed.replace("\\\"", "\"");
 
     return parsed;
   }

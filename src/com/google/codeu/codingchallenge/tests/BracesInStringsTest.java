@@ -31,7 +31,7 @@ public class BracesInStringsTest implements Test {
       JSON fooBar = foo.getObject("bar}");
       Asserts.isNotNull(fooBar);
       
-      Asserts.isEqual(fooBar.getString("b\\{az"), "{yerp");
+      Asserts.isEqual(fooBar.getString("b{az"), "{yerp");
       Asserts.isEqual(fooBar.getString("keke"), "coolio");
       
       Asserts.isEqual(foo.getString("as{df"), "g}hjkl");

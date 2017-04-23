@@ -14,6 +14,7 @@
 
 package com.google.codeu.codingchallenge.tests;
 
+import com.google.codeu.codingchallenge.Debug;
 import com.google.codeu.codingchallenge.JSON;
 import com.google.codeu.codingchallenge.JSONFactory;
 import com.google.codeu.codingchallenge.JSONParser;
@@ -23,6 +24,8 @@ import com.google.codeu.codingchallenge.MyJSONParser;
 final class TestMain {
 
     public static void main(String[] args) {
+      
+        Debug.setEnabled(false);
 
         final Tester tests = new Tester();
 

@@ -3,7 +3,7 @@
   { 
     "bar}":
     { 
-      "b\{az": "{yerp",
+      "b{az": "{yerp",
       "keke": "coolio"
     },
     
