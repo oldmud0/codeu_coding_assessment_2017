@@ -15,40 +15,56 @@
 package com.google.codeu.codingchallenge;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public final class MyJSON implements JSON {
 
+  // This could, of course, hold any sort of non-JSON "primitive," but
+  // for the sake of this exercise, only strings will be allowed.
+  private Map<String, String> strings = new HashMap<String, String>();
+
+  private Map<String, JSON> objects = new HashMap<String, JSON>();
+
   @Override
   public JSON getObject(String name) {
-    // TODO: implement this
-    return null;
+    return objects.get(name);
   }
 
   @Override
   public JSON setObject(String name, JSON value) {
-    // TODO: implement this
+    objects.put(name, value);
+    if (strings.containsKey(name))
+      strings.remove(name);
     return this;
   }
 
   @Override
   public String getString(String name) {
-    // TODO: implement this
-    return null;
+    return strings.get(name);
   }
 
   @Override
   public JSON setString(String name, String value) {
-    // TODO: implement this
+    strings.put(name, value);
+    if (objects.containsKey(name))
+      objects.remove(name);
     return this;
   }
 
   @Override
   public void getObjects(Collection<String> names) {
-    // TODO: implement this
+    Set<String> stringKeys = strings.keySet();
+    for (String key : stringKeys)
+      names.add(key);
   }
 
   @Override
   public void getStrings(Collection<String> names) {
-    // TODO: implement this
+    Set<String> objectKeys = objects.keySet();
+    for (String key : objectKeys)
+      names.add(key);
   }
 }
