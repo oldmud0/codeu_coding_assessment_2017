@@ -36,7 +36,7 @@ public interface JSON {
   //
   // Get the string value within this object that has the given name. if
   // there is no string with the given name, the method will return null.
-  String getString (String name);
+  String getString(String name);
 
   // SET STRING
   //
